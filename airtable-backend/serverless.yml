@@ -5,5 +5,5 @@ provider:
   runtime: nodejs10.x
 
 functions:
-  hello:
-    handler: handler.hello
+  register:
+    handler: index.register
