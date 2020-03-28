@@ -1,5 +1,4 @@
-var Airtable = require('airtable');
-
+const Airtable = require('airtable');
 
 exports.register = function(event, context, callback) {
   const body = JSON.parse(event.body)
