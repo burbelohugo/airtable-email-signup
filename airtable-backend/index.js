@@ -1,46 +1,40 @@
 var Airtable = require('airtable');
 
 
-module.exports.register = async event => {
+exports.register = function(event, context, callback) {
   const body = JSON.parse(event.body)
   const email = body.email;
   const airtableAPIKey = body.apikey;
   const airtableBase = body.base;
   const airtableTable = body.table;
   const airtableColumn = body.column;
-  console.log(email)
-  Airtable.configure({
-    endpointUrl: 'https://api.airtable.com',
-    apiKey: airtableAPIKey
-  });
-  var base = Airtable.base(airtableBase);
-  base(airtableTable).create([
-    {
-      "fields": {
-        "email": email
-      }
+  console.log(airtableAPIKey)
+  var base = new Airtable({apiKey: 'key0C4CA8xtuHMDDN'}).base('app4raQKdmoN34zFV');
+
+  let entry = {
+    "fields": {
+
     }
-  ], function(err, records) {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    records.forEach(function (record) {
-      console.log(record.getId());
-    });
-  });
+  }
 
+  entry.fields[airtableColumn] = email
 
-
-  return {
-    statusCode: 200,
-    body: JSON.stringify(
-      {
-        message: 'Go Serverless v1.0! Your function executed successfully!',
-        input: email,
-      },
-      null,
-      2
-    ),
-  };
-};
+  base('Emails')
+    .create([entry],function done(err) {
+            if (err) {
+              callback(err)
+            } else {
+              const body = JSON.stringify({ records: airtableColumn })
+              const response = {
+                statusCode: 200,
+                body: body,
+                headers: {
+                  'content-type': 'application/json',
+                  'cache-control': 'Cache-Control: max-age=300, public'
+                }
+              }
+              callback(null, response)
+            }
+          }
+  )
+}
