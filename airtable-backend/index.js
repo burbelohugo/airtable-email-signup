@@ -21,7 +21,6 @@ exports.register = function(event, context, callback) {
     if (err) {
       callback(err)
     } else {
-      const body =
       const response = {
         statusCode: 200,
         body: JSON.stringify({ records: email })
