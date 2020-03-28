@@ -7,3 +7,8 @@ provider:
 functions:
   register:
     handler: index.register
+    events:
+      - http:
+          path: register
+          method: post
+          cors: false
