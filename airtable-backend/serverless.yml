@@ -11,4 +11,4 @@ functions:
       - http:
           path: register
           method: post
-          cors: false
+          cors: true

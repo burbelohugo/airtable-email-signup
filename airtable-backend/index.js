@@ -22,7 +22,11 @@ exports.register = function(event, context, callback) {
     } else {
       const response = {
         statusCode: 200,
-        body: JSON.stringify({ records: email })
+        body: JSON.stringify({ records: email }),
+        headers: {
+         'Access-Control-Allow-Origin': '*',
+         'Access-Control-Allow-Credentials': true,
+       }
       }
       callback(null, response)
     }
