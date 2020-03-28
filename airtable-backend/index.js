@@ -9,7 +9,7 @@ exports.register = function(event, context, callback) {
   const airtableTable = body.table;
   const airtableColumn = body.column;
 
-  const base = new Airtable({apiKey: 'key0C4CA8xtuHMDDN'}).base('app4raQKdmoN34zFV');
+  const base = new Airtable({apiKey: airtableAPIKey}).base(airtableBase);
 
   let entry = {
     "fields": {}
@@ -17,7 +17,7 @@ exports.register = function(event, context, callback) {
 
   entry.fields[airtableColumn] = email
 
-  base('Emails').create([entry], function done(err) {
+  base(airtableTable).create([entry], function done(err) {
     if (err) {
       callback(err)
     } else {
