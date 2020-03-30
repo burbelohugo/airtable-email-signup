@@ -7,6 +7,7 @@
         <meta name="viewport" content="width=device-width">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
     </head>
     <body>
       <form id="target">
@@ -22,6 +23,8 @@
         var email = $("#email-form-input").val();
         console.log(email)
         event.preventDefault();
+
+
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "https://6l4jogzme7.execute-api.us-east-1.amazonaws.com/dev/register", true);
         xhr.setRequestHeader('Content-Type', 'application/json');
@@ -32,7 +35,13 @@
           "column":"Email",
           "email": email
         }));
-        $("#email-form-input").val("")
+        $("#email-form-input").blur();
+        $("#email-form-input").addClass( "animated zoomOutRight bg-transparent" );
+        setTimeout(() => {
+          $("#email-form-input").val("")
+          $("#email-form-input").removeClass( "animated zoomOutRight bg-transparent" );
+        }, 1000);
+
       });
     </script>
 
@@ -63,6 +72,10 @@
       .email-input {
         font-size: 15px;
         padding: 5px;
+      }
+
+      .bg-transparent {
+        background-color: transparent;
       }
     </style>
 </html>
